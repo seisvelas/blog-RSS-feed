@@ -1,4 +1,5 @@
 use reqwest::header::USER_AGENT;
+use reqwest::header::CONTENT_TYPE;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -6,6 +7,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let res: Vec<serde_json::Value> = client
         .get("https://api.github.com/users/seisvelas/gists?page=1&per_page=100")
         .header(USER_AGENT, "Xandre's RSS")
+        .header(CONTENT_TYPE, "application/rss+xml")
         .send()
         .await?
         .json::<Vec<serde_json::Value>>()
